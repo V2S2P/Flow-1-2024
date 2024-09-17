@@ -2,8 +2,7 @@ class Ball { // A class is something that has data for our object and the functi
   // Data
   float x;
   float y;
-  float w;
-  float h;
+  float diameter;
   float xspeed;
   float yspeed;
   boolean popped = false;
@@ -11,15 +10,16 @@ class Ball { // A class is something that has data for our object and the functi
   // Constructor
   // The Constructor is the moment the object is born, so when we give it these parameters we tell it to be born
   // with these values from the start.
-  Ball(float xstart, float ystart, float speedX, float speedY) {
+  Ball(float xstart, float ystart, float speedX, float speedY, float dia) {
     x = xstart;
     y = ystart;
     xspeed = speedX;
     yspeed = speedY;
+    diameter = dia;
   }
 
   // Method for displaying the ball, its width, height and color
-  void displayBall(float w, float h, color c) {
+  void displayBall(float diameter, color c) {
     stroke(0);
     if (popped) { // If the ball has popped, change to black. So since popped is default set to false, this wont happen
       // unless you click.
@@ -27,7 +27,8 @@ class Ball { // A class is something that has data for our object and the functi
     } else {
       fill(c);
     }
-    ellipse(x, y, w, h);
+
+    ellipse(x, y, diameter, diameter);
   }
   // Method for the speed of the ball, both on the x-axis and y-axis
   void speed() {
@@ -48,4 +49,13 @@ class Ball { // A class is something that has data for our object and the functi
   void ballPop() {
     popped = true; // Set the popped state to true when clocked.
   }
+  void bounceOffEach() {
+    float d = dist(b.x, b.y, b2.x, b2.y);
+    if (d < b.diameter/2 + b2.diameter/2) {
+      background(0, 255, 0);
+      xspeed = xspeed * -1;
+      yspeed = yspeed * -1;
+    }
+  }
 }
+
